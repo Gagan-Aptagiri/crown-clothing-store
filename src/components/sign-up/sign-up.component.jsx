@@ -9,12 +9,12 @@ class SignUp extends React.Component {
 	constructor() {
 		super();
 
-		this.setState({
+		this.state = {
 			displayName: '',
 			email: '',
 			password: '',
 			confirmPassword: '',
-		});
+		};
 	}
 
 	handleSubmit = async (event) => {
@@ -28,7 +28,10 @@ class SignUp extends React.Component {
 		}
 
 		try {
-			const { user } = auth.createUserWithEmailAndPassword(email, password);
+			const { user } = await auth.createUserWithEmailAndPassword(
+				email,
+				password,
+			);
 
 			await createUserProfileDocument(user, { displayName });
 
@@ -53,7 +56,7 @@ class SignUp extends React.Component {
 		const { displayName, email, password, confirmPassword } = this.state;
 		return (
 			<div className="sign-up">
-				<h2 className="title">I do not have a account.</h2>
+				<h2 className="title">I do not have an account.</h2>
 				<span>Sign up with your email and password.</span>
 				<form className="sign-up-form" onSubmit={this.handleSubmit}>
 					<FormInput
@@ -63,6 +66,7 @@ class SignUp extends React.Component {
 						onChange={this.handleChange}
 						label="DisplayName"
 						required
+						autoComplete="on"
 					/>
 					<FormInput
 						name="email"
@@ -71,6 +75,7 @@ class SignUp extends React.Component {
 						onChange={this.handleChange}
 						label="Email"
 						required
+						autoComplete="on"
 					/>
 					<FormInput
 						name="password"
@@ -79,6 +84,7 @@ class SignUp extends React.Component {
 						onChange={this.handleChange}
 						label="Password"
 						required
+						autoComplete="on"
 					/>
 					<FormInput
 						name="confirmPassword"
@@ -87,6 +93,7 @@ class SignUp extends React.Component {
 						onChange={this.handleChange}
 						label="confirmPassword"
 						required
+						autoComplete="on"
 					/>
 					<CustomButton type="submit">SIGN UP</CustomButton>
 				</form>

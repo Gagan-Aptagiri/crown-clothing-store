@@ -47,6 +47,7 @@ class SignIn extends React.Component {
 						value={this.state.email}
 						handleChange={this.handleChange}
 						required
+						autoComplete="on"
 					/>
 					<div className="buttons">
 						<CustomButton type="submit"> Sign in </CustomButton>
