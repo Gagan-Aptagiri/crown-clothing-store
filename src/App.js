@@ -22,8 +22,26 @@ class App extends React.Component {
 
 	componentDidMount() {
 		//unsubscribeFromAuth contains a function returned from google to close the subscription
-		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (user) => {
-			createUserProfileDocument(user);
+		this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+			if (userAuth) {
+				const userRef = await createUserProfileDocument(userAuth);
+
+				userRef.onSnapshot((snapshot) => {
+					this.setState(
+						{
+							currentUser: {
+								id: snapshot.id,
+								...snapshot.data(),
+							},
+						},
+						() => {
+							console.log(this.state);
+						},
+					);
+				});
+			} else {
+				this.setState({ currentUser: userAuth });
+			}
 		});
 	}
 
