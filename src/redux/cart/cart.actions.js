@@ -26,5 +26,3 @@ export const clearItemFromCart = (item) => {
 		payload: item,
 	};
 };
-
-export default addItem;
